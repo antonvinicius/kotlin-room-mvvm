@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="green">#3DDC97</color>
+    <color name="red">#FF495C</color>
+
+    <color name="gray_900">#0A0A0B</color>
+    <color name="gray_800">#131315</color>
+    <color name="gray_700">#1D1D20</color>
+    <color name="gray_600">#303036</color>
+    <color name="gray_500">#43434C</color>
+    <color name="gray_200">#565661</color>
+    <color name="gray_50">#DFDFE2</color>
+    <color name="white">#FFFFFF</color>
+</resources>

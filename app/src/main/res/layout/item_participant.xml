@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="participant"
+            type="com.antonvinicius.eventlist.models.Participant" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/gray_50"
+        android:gravity="center"
+        android:padding="6dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{participant.name}"
+            android:textColor="@color/gray_900" />
+
+        <ImageButton
+            android:id="@+id/deleteParticipantButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24" />
+    </LinearLayout>
+</layout>

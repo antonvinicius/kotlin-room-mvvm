@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppStyles_WeightFill">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="AppStyle_Text_SM">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray_900</item>
+    </style>
+</resources>

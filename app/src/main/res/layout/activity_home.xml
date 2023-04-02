@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="activity"
+            type="com.antonvinicius.eventlist.screens.home.HomeActivity" />
+        <variable
+            name="adapter"
+            type="com.antonvinicius.eventlist.screens.home.adapters.ParticipantAdapter" />
+        <variable
+            name="viewModel"
+            type="com.antonvinicius.eventlist.screens.home.viewModels.HomeViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".screens.home.HomeActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/green"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sexta-feira, 20 de abril de 2023"
+                android:textColor="@color/gray_500"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Evento de Natal"
+                android:textColor="@color/gray_500"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <EditText
+                android:text="@={viewModel.newParticipantName}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Nome do participante" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:onClick="@{() -> activity.handleAddNewParticipant()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_person_add_24" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/participantList"
+            android:padding="16dp"
+            android:background="@color/gray_500"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:adapter="@{adapter}"
+            tools:listitem="@layout/item_participant" />
+
+    </LinearLayout>
+</layout>
