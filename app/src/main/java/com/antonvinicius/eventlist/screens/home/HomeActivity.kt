@@ -3,11 +3,14 @@ package com.antonvinicius.eventlist.screens.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.antonvinicius.eventlist.application.EventListApplication
+import com.antonvinicius.eventlist.data.dao.ParticipantDao
 import com.antonvinicius.eventlist.databinding.ActivityHomeBinding
 import com.antonvinicius.eventlist.errors.AppError
 import com.antonvinicius.eventlist.models.Participant
 import com.antonvinicius.eventlist.screens.home.adapters.ParticipantAdapter
 import com.antonvinicius.eventlist.screens.home.viewModels.HomeViewModel
+import com.antonvinicius.eventlist.screens.home.viewModels.HomeViewModelFactory
 import com.antonvinicius.eventlist.util.Alert
 
 class HomeActivity : AppCompatActivity() {
@@ -20,7 +23,12 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        (application as EventListApplication).apply {
+            viewModel = ViewModelProvider(
+                this@HomeActivity,
+                HomeViewModelFactory(db.participantDao())
+            )[HomeViewModel::class.java]
+        }
 
         adapter = ParticipantAdapter {
             handleRemoveParticipant(it)

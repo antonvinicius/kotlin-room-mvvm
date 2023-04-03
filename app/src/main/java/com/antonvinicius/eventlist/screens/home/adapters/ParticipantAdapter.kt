@@ -25,7 +25,7 @@ class ParticipantAdapter(private val onClickParticipant: (Participant) -> Unit) 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setParticipants(participants: MutableList<Participant>) {
+    fun setParticipants(participants: List<Participant>) {
         participantList = participants
         notifyDataSetChanged()
     }

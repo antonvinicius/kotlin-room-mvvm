@@ -1,13 +1,14 @@
 package com.antonvinicius.eventlist.screens.home.viewModels
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.antonvinicius.eventlist.data.dao.ParticipantDao
 import com.antonvinicius.eventlist.errors.AppError
 import com.antonvinicius.eventlist.models.Participant
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val participantDao: ParticipantDao) : ViewModel() {
     val newParticipantName = MutableLiveData<String>()
-    val participants = MutableLiveData<MutableList<Participant>>()
+    val participants: LiveData<List<Participant>> = participantDao.getAllParticipants()
 
     private fun isNameInvalidOrIncomplete(): Boolean {
         return newParticipantName.value == null || newParticipantName.value?.isBlank() == true
@@ -20,10 +21,11 @@ class HomeViewModel : ViewModel() {
 
             newParticipantName.value?.let { participantName ->
                 val participant = Participant(participantName)
-                val currentParticipants = participants.value.orEmpty().toMutableList()
-                currentParticipants.add(participant)
 
-                participants.value = currentParticipants
+                viewModelScope.launch {
+                    participantDao.insertParticipant(participant)
+                }
+
                 newParticipantName.value = ""
             }
         } catch (error: AppError) {
@@ -35,12 +37,17 @@ class HomeViewModel : ViewModel() {
 
     fun removeParticipant(participant: Participant) {
         try {
-            val currentParticipants = participants.value.orEmpty().toMutableList()
-            currentParticipants.remove(participant)
-
-            participants.value = currentParticipants
+            viewModelScope.launch {
+                participantDao.deleteParticipant(participant)
+            }
         } catch (error: Exception) {
             throw error
         }
+    }
+}
+
+class HomeViewModelFactory(private val participantDao: ParticipantDao) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return HomeViewModel(participantDao) as T
     }
 }
